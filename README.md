@@ -1,4 +1,5 @@
-Kalman filter adapter for ARDRONE (Parrot) 2.0
+<big>Kalman filter for ARDRONE (Parrot) 2.0</big>
+
 
 Kalman filter in C++ for the ARDRONE 2.0 using ROS for communication
 Based on Ardrone Driver
