@@ -1,0 +1,25 @@
+#include <iostream>
+#include "Headers/GPS.h"
+#include "Headers/DataReader.h"
+#include <stdio.h>
+#include <string>
+#include <stdlib.h>
+
+using namespace std;
+
+int main(){
+
+         GPS *gps=new GPS("foo");
+     
+     
+         //Thread Exemple d'acquisition du GPS
+         for(int i=0; i<4; i++){
+                cout << "Acquisition numéro " << i << " : \n";
+                gps->Acquisition();
+                cout << gps->reader->result;
+                gps->Display();
+         }
+        //Fin du thread d'exemple
+     
+
+}

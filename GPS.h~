@@ -1,0 +1,20 @@
+#ifndef GPS_H
+#define GPS_H
+
+#include <vector>
+
+class GPS {
+
+        //Attributs
+        vector<int> *data;
+        
+        //Fonctions
+        public :
+                GPS();
+                ~GPS();
+                void Hello();
+
+
+};
+
+#endif

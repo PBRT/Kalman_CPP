@@ -1,0 +1,14 @@
+#include "GPS.h"
+#include <iostream>
+using namespace std;
+
+GPS::GPS(){
+        cout << "Creation de l'objet"
+}
+
+
+
+void GPS::Hello(){
+
+        cout << "TOLO";
+}

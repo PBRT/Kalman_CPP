@@ -1,0 +1,14 @@
+set terminal X11
+set size 0.8,0.8
+set nokey
+ 
+#set xrange [-0.1:10]
+#set yrange [0:110]
+M=3
+k=3
+set title "X en vert, Y en rouge et Z en bleu"
+plot "Kalman_Results.txt" u 1:2 title 'X' with lines, \
+     "Kalman_Results.txt" u 1:3 title 'Y' with lines, \
+     "Kalman_Results.txt" u 1:4 title 'Z' with lines
+
+#pause -1 "Faire retour" # permet d'attendre que l'utilisateur ait vu la figure  quand on fait une sortie X11
