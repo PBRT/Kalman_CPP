@@ -7,11 +7,14 @@ set nokey
 M=3
 k=3
 set title "X en vert, Y en rouge et Z en bleu"
-plot "Kalman_Results.txt" u 1:2 title 'X' with lines, \
-     "Kalman_Results.txt" u 1:3 title 'Y' with lines, \
-     "Kalman_Results.txt" u 1:4 title 'Z' with lines, \
-     "Kalman_Results.txt" u 1:5 title 'Z' with lines, \
-     "Kalman_Results.txt" u 1:6 title 'Z' with lines, \
-     "Kalman_Results.txt" u 1:7 title 'Z' with lines
+plot "Kalman_Results.txt" u 1:2 title 'X_odom' with lines, \
+     "Kalman_Results.txt" u 1:3 title 'Y_odom' with lines, \
+     "Kalman_Results.txt" u 1:4 title 'Z_odom' with lines, \
+     "Kalman_Results.txt" u 1:5 title 'X_gps' with lines, \
+     "Kalman_Results.txt" u 1:6 title 'Y_gps' with lines, \
+     "Kalman_Results.txt" u 1:7 title 'Z_gps' with lines, \
+     "Kalman_Results.txt" u 1:8 title 'X_imu' with lines, \
+     "Kalman_Results.txt" u 1:9 title 'Y_imu' with lines, \
+     "Kalman_Results.txt" u 1:10 title 'Z_imu' with lines
 
 #pause -1 "Faire retour" # permet d'attendre que l'utilisateur ait vu la figure  quand on fait une sortie X11

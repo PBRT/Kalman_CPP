@@ -25,10 +25,8 @@ Kalman::Kalman(int a, int c, double q, double r){
        this->R=r;
        this->X = new vector<double>(3);   
        this->Xprec = new vector<double>(3);   
-      // this->X=0.0;
-      // this->Xprec=0.0;
-       this->P=0.0;
-       this->Pprec=0.0;
+       this->P=new vector<vector<double> >(3, vector<double>(3));
+       this->Pprec=new vector<vector<double> >(3, vector<double>(3));
 }
 
 
@@ -45,11 +43,11 @@ std::vector<double> * Kalman::getXprec(){
     return this->Xprec;
 }
 
-double Kalman::getP(){
+std::vector<std::vector<double> >*  Kalman::getP(){
     return this->P;
 }
 
-double Kalman::getPprec(){
+std::vector<std::vector<double> > * Kalman::getPprec(){
     return this->Pprec;
 }
 
@@ -62,11 +60,11 @@ void Kalman::setXprec(std::vector<double> * i){
     this->Xprec=i;
 }
 
-void Kalman::setP(double i){
+void Kalman::setP(std::vector<std::vector<double> > *i){
     this->P=i;
 }
 
-void Kalman::setPprec(double i){
+void Kalman::setPprec(std::vector<std::vector<double> > *i){
     this->Pprec=i;
 }
 
@@ -75,7 +73,7 @@ void Kalman::setPprec(double i){
 void Kalman::Kalman_Filter(std::vector<double> *Z){
 
     //Analyse des mesures (Validité), normalement, changer la matrice C, peut etre déja fait dans la fonction Kalman
-    for(int i=0; i<6; i++){
+    for(int i=0; i<9; i++){
         if(Z->at(i)==-10000)
             cout << "Mesure fausse car trop vielle!!!" << endl;
     }

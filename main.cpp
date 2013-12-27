@@ -67,7 +67,7 @@ void *threadGlobal(void *o){
 
         //int *freq = (int*)o;
         int i=0;
-        std::vector<double> *Z = new vector<double>(6);
+        std::vector<double> *Z = new vector<double>(9);
 
         struct timeb end2;
         double diff2;
@@ -83,7 +83,7 @@ void *threadGlobal(void *o){
                 printf("-------> GPS : TimeStamp : %f Value : %f \n", gps_global->getTimeStamp(), gps_global->getData()->at(1));
                 printf("-------> ODOM : TimeStamp : %f Value : %f \n", odom_global->getTimeStamp(), odom_global->getData()->at(0));
                // printf("-------> QRCODE : TimeStamp : %f Value : %d \n", qr_global->getTimeStamp(), qr_global->getData()->at(1));
-                //printf("-------> IMU : TimeStamp : %f Value : %d \n", imu_global->getTimeStamp(), imu_global->getData()->at(1));
+                printf("-------> IMU : TimeStamp : %f Value : %d \n", imu_global->getTimeStamp(), imu_global->getData()->at(1));
                // printf("-------> PID : TimeStamp : %f Value : %d \n\n", pid_global->getTimeStamp(), pid_global->getData()->at(1)); 
                 
                 //Acquisition du temps
@@ -102,6 +102,11 @@ void *threadGlobal(void *o){
                 Z->at(3)=checkTimeStamp(diff2,gps_global->getTimeStamp(), gps_global->getData()->at(0));
                 Z->at(4)=checkTimeStamp(diff2,gps_global->getTimeStamp(), gps_global->getData()->at(1));
                 Z->at(5)=checkTimeStamp(diff2,gps_global->getTimeStamp(), gps_global->getData()->at(2));
+
+                //IMU
+                Z->at(6)=checkTimeStamp(diff2,imu_global->getTimeStamp(), imu_global->getData()->at(0));
+                Z->at(7)=checkTimeStamp(diff2,imu_global->getTimeStamp(), imu_global->getData()->at(1));
+                Z->at(8)=checkTimeStamp(diff2,imu_global->getTimeStamp(), imu_global->getData()->at(2));
                 
                 //Filtrage de kalman
                 kalman->Kalman_Filter(Z);
@@ -118,7 +123,7 @@ void *threadGlobal(void *o){
                 system(cmd.c_str());*/
 
                 //Plotting
-                myfile << i<<" " << kalman->getX()->at(0) << " " << kalman->getX()->at(1) << " " << kalman->getX()->at(2) << " " << kalman->getX()->at(3)<< " " << kalman->getX()->at(4)<< " " << kalman->getX()->at(5) << endl;
+                myfile << i<<" " << kalman->getX()->at(0) << " " << kalman->getX()->at(1) << " " << kalman->getX()->at(2) << " " << kalman->getX()->at(3)<< " " << kalman->getX()->at(4)<< " " << kalman->getX()->at(5) << " " << kalman->getX()->at(6) << " " << kalman->getX()->at(7)<< " " << kalman->getX()->at(8) << endl;
                 
         }
 
@@ -132,6 +137,7 @@ void *threadGlobal(void *o){
 
 int main(){
 
+
          //Frequence des itération du Kalman et de relevé des mesures en ms       
         //Freq=1000*Freq; //Conversion en usecondes
        
@@ -139,7 +145,7 @@ int main(){
          pthread_create(&t1,NULL,&threadGPS,gps_global);
          //pthread_create(&t2,NULL,&threadQR,qr_global);
          pthread_create(&t3,NULL,&threadGPS,odom_global);
-        // pthread_create(&t4,NULL,&threadIMU,imu_global);
+         pthread_create(&t4,NULL,&threadIMU,imu_global);
        //  pthread_create(&t5,NULL,&threadGPS,pid_global);
 
          pthread_create(&t6,NULL,&threadGlobal,NULL);

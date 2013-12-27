@@ -1,6 +1,6 @@
 #ifndef IMU_H
 #define IMU_H
-
+#include <stdlib.h>
 #include <vector>
 #include <string>
 #include <time.h>
@@ -39,6 +39,9 @@ class IMU {
                 void Display();
                 void Acquisition();
                 void Analysis();
+
+                std::vector<std::string> split2(const std::string &s, char delim, std::vector<std::string> &elems);
+                std::vector<std::string> split(const std::string &s, char delim);
 
 
 };

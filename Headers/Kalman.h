@@ -17,7 +17,7 @@ class Kalman {
         double Q;
         double R;
 
-        double P,Pprec;
+        std::vector<std::vector<double> > *P, *Pprec;
         std::vector<double> *X, *Xprec;
 
         
@@ -31,14 +31,14 @@ class Kalman {
                 int getA();
                 std::vector<double> *getX();
                 std::vector<double> *getXprec();
-                double getP();
-                double getPprec();
+                std::vector<std::vector<double> > * getP();
+                std::vector<std::vector<double> > *getPprec();
 
                 //Setteurs
                 void setX(std::vector<double> *);
                 void setXprec(std::vector<double> *);
-                void setP(double);
-                void setPprec(double);
+                void setP(std::vector<std::vector<double> > *);
+                void setPprec(std::vector<std::vector<double> > *);
 
                 //Filtering
                 void Kalman_Filter(std::vector<double> *);

@@ -1,0 +1,22 @@
+header:
+  seq: 2
+  stamp:
+    secs: 1384187282
+    nsecs: 513622553  
+  frame_id: ''
+orientation:
+  x: 52623.20
+  y: 752037.3369
+  z: 252.036987
+  w: 25679.05
+orientation_covariance: [15.2, 0.0, 0.0, 559.6, 0.0, 0.0, 236.6 ,0.0 ,0.0]
+angular_velocity:
+  x: 56.3
+  y: 0.666
+  z: 89.3
+angular_velocity_covariance: [225.2, 0.0, 0.0, 8889.6, 0.0, 0.0, 567.6 ,0.0 ,0.0]
+linear_acceleration:
+  x: 5.663
+  y: 7.0036
+  z: 0.0025
+linear_acceleration_covariance: [88.2, 0.0, 0.0, 0.5596, 0.0, 0.0, 5886.02 ,0.0 ,0.0]
