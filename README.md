@@ -1,4 +1,4 @@
-<big>Kalman filter for ARDRONE (Parrot) 2.0</big>
+# Kalman filter for ARDRONE (Parrot) 2.0
 
 
 Kalman filter in C++ for the ARDRONE 2.0 using ROS for communication
@@ -11,4 +11,5 @@ Merge data from :
 ->PID (computation from current position and command)
 ->Odometry
 
+Check more detail on the [*Localization Ardrone project (University project) *](https://github.com/clems4ever/drone_project?source=cc)
 
