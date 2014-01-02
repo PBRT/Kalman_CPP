@@ -73,9 +73,9 @@ void Kalman::setPprec(std::vector<std::vector<double> > *i){
 void Kalman::Kalman_Filter(std::vector<double> *Z){
 
     //Analyse des mesures (Validité), normalement, changer la matrice C, peut etre déja fait dans la fonction Kalman
-    for(int i=0; i<9; i++){
-        if(Z->at(i)==-10000)
-            cout << "Mesure fausse car trop vielle!!!" << endl;
+    for(int i=0; i<12; i++){
+        if(Z->at(i)==-10000){}
+           // cout << "Mesure fausse car trop vielle!!!" << endl;
     }
 
     //Algorithme de Kalman (pour l'instant, simple moyenne)    

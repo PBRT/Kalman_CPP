@@ -4,11 +4,12 @@
 #include "QR.h"
 #include "IMU.h"
 #include "Kalman.h"
+#include "PID.h"
  
 //Data Reading
 extern GPS *gps_global;
 extern GPS *odom_global;
-extern GPS *pid_global;
+extern PID *pid_global;
 extern QR *qr_global;
 extern IMU *imu_global;
 

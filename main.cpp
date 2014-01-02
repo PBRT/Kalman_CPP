@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Headers/GPS.h"
+#include "Headers/PID.h"
 #include "Headers/DataReader.h"
 #include "Headers/QR.h"
 #include "Headers/Kalman.h"
@@ -50,6 +51,17 @@ void *threadIMU(void *obj){
 
 }
 
+void *threadPID(void *obj){
+        
+        PID *pid = (PID*)obj;
+        //Reading loop
+        while(1)
+                pid->Acquisition();
+
+        return NULL;
+
+}
+
 //Check data validity
 //If valid, return the value
 //If unvalid, return -10000
@@ -67,7 +79,7 @@ void *threadGlobal(void *o){
 
         //int *freq = (int*)o;
         int i=0;
-        std::vector<double> *Z = new vector<double>(9);
+        std::vector<double> *Z = new vector<double>(12);
 
         struct timeb end2;
         double diff2;
@@ -79,17 +91,17 @@ void *threadGlobal(void *o){
         while(1){
 
                 //Read
-                cout << "----Aquisition et lecture buffers numero "<<i<<": " << endl; 
+                 cout << "----Aquisition et lecture buffers numero "<<i<<": " << endl; 
                 printf("-------> GPS : TimeStamp : %f Value : %f \n", gps_global->getTimeStamp(), gps_global->getData()->at(1));
                 printf("-------> ODOM : TimeStamp : %f Value : %f \n", odom_global->getTimeStamp(), odom_global->getData()->at(0));
                // printf("-------> QRCODE : TimeStamp : %f Value : %d \n", qr_global->getTimeStamp(), qr_global->getData()->at(1));
                 printf("-------> IMU : TimeStamp : %f Value : %d \n", imu_global->getTimeStamp(), imu_global->getData()->at(1));
-               // printf("-------> PID : TimeStamp : %f Value : %d \n\n", pid_global->getTimeStamp(), pid_global->getData()->at(1)); 
+                printf("-------> PID : TimeStamp : %f Value : %f \n\n", pid_global->getTimeStamp(), pid_global->getDataLinear()->at(1)); 
                 
                 //Acquisition du temps
                 ftime(&end2);
                 diff2=1000.0*end2.time + end2.millitm;
-                printf(" === Temps courant : %f \n\n", diff2);
+               // printf(" === Temps courant : %f \n\n", diff2);
 
                 //Contruction du vecteur de mesures Z en verifiant la validité
 
@@ -107,6 +119,11 @@ void *threadGlobal(void *o){
                 Z->at(6)=checkTimeStamp(diff2,imu_global->getTimeStamp(), imu_global->getData()->at(0));
                 Z->at(7)=checkTimeStamp(diff2,imu_global->getTimeStamp(), imu_global->getData()->at(1));
                 Z->at(8)=checkTimeStamp(diff2,imu_global->getTimeStamp(), imu_global->getData()->at(2));
+
+                //PID
+                Z->at(9)=checkTimeStamp(diff2,pid_global->getTimeStamp(), pid_global->getDataLinear()->at(0));
+                Z->at(10)=checkTimeStamp(diff2,pid_global->getTimeStamp(), pid_global->getDataLinear()->at(1));
+                Z->at(11)=checkTimeStamp(diff2,pid_global->getTimeStamp(), pid_global->getDataLinear()->at(2));
                 
                 //Filtrage de kalman
                 kalman->Kalman_Filter(Z);
@@ -123,7 +140,7 @@ void *threadGlobal(void *o){
                 system(cmd.c_str());*/
 
                 //Plotting
-                myfile << i<<" " << kalman->getX()->at(0) << " " << kalman->getX()->at(1) << " " << kalman->getX()->at(2) << " " << kalman->getX()->at(3)<< " " << kalman->getX()->at(4)<< " " << kalman->getX()->at(5) << " " << kalman->getX()->at(6) << " " << kalman->getX()->at(7)<< " " << kalman->getX()->at(8) << endl;
+                myfile << i<<" " << kalman->getX()->at(0) << " " << kalman->getX()->at(1) << " " << kalman->getX()->at(2) << " " << kalman->getX()->at(3)<< " " << kalman->getX()->at(4)<< " " << kalman->getX()->at(5) << " " << kalman->getX()->at(6) << " " << kalman->getX()->at(7)<< " " << kalman->getX()->at(8) << " " << kalman->getX()->at(9) << " " << kalman->getX()->at(10)<< " " << kalman->getX()->at(11) << endl;
                 
         }
 
@@ -146,7 +163,7 @@ int main(){
          //pthread_create(&t2,NULL,&threadQR,qr_global);
          pthread_create(&t3,NULL,&threadGPS,odom_global);
          pthread_create(&t4,NULL,&threadIMU,imu_global);
-       //  pthread_create(&t5,NULL,&threadGPS,pid_global);
+         pthread_create(&t5,NULL,&threadPID,pid_global);
 
          pthread_create(&t6,NULL,&threadGlobal,NULL);
 
@@ -155,7 +172,7 @@ int main(){
          //pthread_join(t6,NULL);
    
          //For plotting, comment join and uncomment sleep
-         sleep(10);
+         sleep(15);
          
                 //Plotting of results
         FILE *gnuplot = popen("gnuplot -persist", "w");
