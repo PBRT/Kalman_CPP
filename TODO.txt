@@ -1,0 +1,7 @@
+TO DO ----------------------
+
+Supprimer classe QR code ==> Message type odometry
+Integrer le QR code dans les threads
+Lecture modele dans un fichier => Passer la matrice P en matricel
+Modifier fonction kalman
+Cree un jeux de valeurs plosibles
