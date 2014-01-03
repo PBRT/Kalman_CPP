@@ -1,0 +1,10 @@
+Using command lines for git
+
+=> Add : git add * ==> add all
+=> Add and update delete files : git add -u 
+
+=> Commit : update current git repo, git commit -m "Raison du commit"
+
+=> Put on github, git push origin master
+
+=> Get from github, git pull
