@@ -2,7 +2,6 @@
 #include "Headers/GPS.h"
 #include "Headers/PID.h"
 #include "Headers/DataReader.h"
-#include "Headers/QR.h"
 #include "Headers/Kalman.h"
 #include <stdio.h>
 #include <string>
@@ -25,17 +24,6 @@ void *threadGPS(void *obj){
         //Reading loop
         while(1)  
             gps->Acquisition();
-
-        return NULL;
-}
-
-//Thread QR Code
-void *threadQR(void *obj){
-
-        QR *qr = (QR*)obj;
-        //Reading loop
-        while(1)
-            qr->Acquisition();
 
         return NULL;
 }
@@ -79,7 +67,7 @@ void *threadGlobal(void *o){
 
         //int *freq = (int*)o;
         int i=0;
-        std::vector<double> *Z = new vector<double>(12);
+        std::vector<double> *Z = new vector<double>(15);
 
         struct timeb end2;
         double diff2;
@@ -91,10 +79,10 @@ void *threadGlobal(void *o){
         while(1){
 
                 //Read
-                 cout << "----Aquisition et lecture buffers numero "<<i<<": " << endl; 
+                cout << "----Aquisition et lecture buffers numero "<<i<<": " << endl; 
                 printf("-------> GPS : TimeStamp : %f Value : %f \n", gps_global->getTimeStamp(), gps_global->getData()->at(1));
                 printf("-------> ODOM : TimeStamp : %f Value : %f \n", odom_global->getTimeStamp(), odom_global->getData()->at(0));
-               // printf("-------> QRCODE : TimeStamp : %f Value : %d \n", qr_global->getTimeStamp(), qr_global->getData()->at(1));
+                printf("-------> QRCODE : TimeStamp : %f Value : %f \n", qr_global->getTimeStamp(), qr_global->getData()->at(1));
                 printf("-------> IMU : TimeStamp : %f Value : %d \n", imu_global->getTimeStamp(), imu_global->getData()->at(1));
                 printf("-------> PID : TimeStamp : %f Value : %f \n\n", pid_global->getTimeStamp(), pid_global->getDataLinear()->at(1)); 
                 
@@ -124,6 +112,11 @@ void *threadGlobal(void *o){
                 Z->at(9)=checkTimeStamp(diff2,pid_global->getTimeStamp(), pid_global->getDataLinear()->at(0));
                 Z->at(10)=checkTimeStamp(diff2,pid_global->getTimeStamp(), pid_global->getDataLinear()->at(1));
                 Z->at(11)=checkTimeStamp(diff2,pid_global->getTimeStamp(), pid_global->getDataLinear()->at(2));
+
+                //QR
+                Z->at(12)=checkTimeStamp(diff2,qr_global->getTimeStamp(), qr_global->getData()->at(0));
+                Z->at(13)=checkTimeStamp(diff2,qr_global->getTimeStamp(), qr_global->getData()->at(1));
+                Z->at(14)=checkTimeStamp(diff2,qr_global->getTimeStamp(), qr_global->getData()->at(2));
                 
                 //Filtrage de kalman
                 kalman->Kalman_Filter(Z);
@@ -140,7 +133,7 @@ void *threadGlobal(void *o){
                 system(cmd.c_str());*/
 
                 //Plotting
-                myfile << i<<" " << kalman->getX()->at(0) << " " << kalman->getX()->at(1) << " " << kalman->getX()->at(2) << " " << kalman->getX()->at(3)<< " " << kalman->getX()->at(4)<< " " << kalman->getX()->at(5) << " " << kalman->getX()->at(6) << " " << kalman->getX()->at(7)<< " " << kalman->getX()->at(8) << " " << kalman->getX()->at(9) << " " << kalman->getX()->at(10)<< " " << kalman->getX()->at(11) << endl;
+                myfile << i<<" " << kalman->getX()->at(0) << " " << kalman->getX()->at(1) << " " << kalman->getX()->at(2) << " " << kalman->getX()->at(3)<< " " << kalman->getX()->at(4)<< " " << kalman->getX()->at(5) << " " << kalman->getX()->at(6) << " " << kalman->getX()->at(7)<< " " << kalman->getX()->at(8) << " " << kalman->getX()->at(9) << " " << kalman->getX()->at(10)<< " " << kalman->getX()->at(11) << " " << kalman->getX()->at(12) << " " << kalman->getX()->at(13) << " " << kalman->getX()->at(14) <<  endl;
                 
         }
 
@@ -160,7 +153,7 @@ int main(){
        
          pthread_t t1,t2,t3,t4,t5,t6;
          pthread_create(&t1,NULL,&threadGPS,gps_global);
-         //pthread_create(&t2,NULL,&threadQR,qr_global);
+         pthread_create(&t2,NULL,&threadGPS,qr_global);
          pthread_create(&t3,NULL,&threadGPS,odom_global);
          pthread_create(&t4,NULL,&threadIMU,imu_global);
          pthread_create(&t5,NULL,&threadPID,pid_global);

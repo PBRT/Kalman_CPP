@@ -79,18 +79,8 @@ void GPS::Acquisition(){
         diff=1000.0*end.time + end.millitm;
         this->setTimeStamp(diff);
 
-        //Odometric analysis
-        if(this->getType().compare("odom")==0)    
-            this->Analysis_for_Odometric_Messages();
+        this->Analysis_for_Odometric_Messages();
 
-        //GPS analysis
-        else if(this->getType().compare("gps")==0)
-            this->Analysis_for_Odometric_Messages();
-
-        //PID analysis
-        else if(this->getType().compare("pid")==0)
-            cout << "pid analysis" << endl;
-       
 
 }
 

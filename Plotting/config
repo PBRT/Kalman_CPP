@@ -18,6 +18,9 @@ plot "Kalman_Results.txt" u 1:2 title 'X_odom' with lines, \
      "Kalman_Results.txt" u 1:10 title 'Z_imu' with lines, \
      "Kalman_Results.txt" u 1:11 title 'X_pid' with lines, \
      "Kalman_Results.txt" u 1:12 title 'Y_pid' with lines, \
-     "Kalman_Results.txt" u 1:13 title 'Z_pid' with lines
+     "Kalman_Results.txt" u 1:13 title 'Z_pid' with lines, \
+     "Kalman_Results.txt" u 1:14 title 'X_pid' with lines, \
+     "Kalman_Results.txt" u 1:15 title 'Y_pid' with lines, \
+     "Kalman_Results.txt" u 1:16 title 'Z_pid' with lines
 
 #pause -1 "Faire retour" # permet d'attendre que l'utilisateur ait vu la figure  quand on fait une sortie X11
