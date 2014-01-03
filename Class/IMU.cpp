@@ -48,6 +48,9 @@ int IMU::getSizeMess(){
 void IMU::setTimeStamp(double val){
     this->timeStamp=val;
 }
+void IMU::setTopic(std::string val){
+    this->topic_name=val;
+}
 
 //Affichage des données dans le buffer
 void IMU::Display(){

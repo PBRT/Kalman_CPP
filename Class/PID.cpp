@@ -57,6 +57,9 @@ int PID::getSizeMess(){
 void PID::setTimeStamp(double val){
     this->timeStamp=val;
 }
+void PID::setTopic(std::string val){
+    this->topic_name=val;
+}
 
 //Affichage des données dans le buffer
 void PID::Display(){

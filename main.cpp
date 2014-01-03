@@ -3,6 +3,7 @@
 #include "Headers/PID.h"
 #include "Headers/DataReader.h"
 #include "Headers/Kalman.h"
+#include "Headers/Initializer.h"
 #include <stdio.h>
 #include <string>
 #include <stdlib.h>
@@ -148,6 +149,8 @@ void *threadGlobal(void *o){
 int main(){
 
 
+        Initializer *initi = new Initializer("Model.txt");
+        cout << "Fichier d'initialisation : " << initi->getFileName() << endl;
          //Frequence des itération du Kalman et de relevé des mesures en ms       
         //Freq=1000*Freq; //Conversion en usecondes
        
@@ -175,7 +178,7 @@ int main(){
         //TO DO      
 
         //Decodage des trames recuent => QR/GPS/IMU/PID (demander format trames)
-        //Arriver a publier les chiffres !!
+        //Arriver a publier les chiffres !!*/
 
         return 0;
 

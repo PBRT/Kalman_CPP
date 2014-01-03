@@ -53,6 +53,9 @@ int GPS::getSizeMess(){
 void GPS::setTimeStamp(double val){
     this->timeStamp=val;
 }
+void GPS::setTopic(std::string val){
+    this->topic_name=val;
+}
 
 //Affichage des données dans le buffer
 void GPS::Display(){

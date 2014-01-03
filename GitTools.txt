@@ -8,3 +8,5 @@ Using command lines for git
 => Put on github, git push origin master
 
 => Get from github, git pull
+
+rm -i `find -name '*~'

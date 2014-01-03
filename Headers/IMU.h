@@ -34,6 +34,7 @@ class IMU {
 
                 //Setteurs
                 void setTimeStamp(double);
+                void setTopic(std::string);
                 
                 //Afichage
                 void Display();

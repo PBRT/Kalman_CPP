@@ -34,6 +34,7 @@ class GPS {
 
                 //Setteurs
                 void setTimeStamp(double);
+                void setTopic(std::string);
                 
                 //Afichage
                 void Display();

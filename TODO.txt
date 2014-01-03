@@ -1,5 +1,6 @@
 TO DO ----------------------
 
-Lecture modele dans un fichier => Passer la matrice P en matricel
-Modifier fonction kalman
+Matrices en variables globale 
+Modifier fonction kalman et appeler les matrices
 Cree un jeux de valeurs plosibles
+Publier les données en sortie
