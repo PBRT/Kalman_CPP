@@ -80,13 +80,13 @@ void *threadGlobal(void *o){
         while(1){
 
                 //Read
-                cout << "----Aquisition et lecture buffers numero "<<i<<": " << endl; 
+               /* cout << "----Aquisition et lecture buffers numero "<<i<<": " << endl; 
                 printf("-------> GPS : TimeStamp : %f Value : %f \n", gps_global->getTimeStamp(), gps_global->getData()->at(1));
                 printf("-------> ODOM : TimeStamp : %f Value : %f \n", odom_global->getTimeStamp(), odom_global->getData()->at(0));
                 printf("-------> QRCODE : TimeStamp : %f Value : %f \n", qr_global->getTimeStamp(), qr_global->getData()->at(1));
                 printf("-------> IMU : TimeStamp : %f Value : %d \n", imu_global->getTimeStamp(), imu_global->getData()->at(1));
                 printf("-------> PID : TimeStamp : %f Value : %f \n\n", pid_global->getTimeStamp(), pid_global->getDataLinear()->at(1)); 
-                
+                */
                 //Acquisition du temps
                 ftime(&end2);
                 diff2=1000.0*end2.time + end2.millitm;
@@ -145,23 +145,21 @@ void *threadGlobal(void *o){
 }
 
 
-
 int main(){
 
-
+        //Initialisation des variables (matrices et topics) depuis un fichier texte
         Initializer *initi = new Initializer("Model.txt");
         cout << "Fichier d'initialisation : " << initi->getFileName() << endl;
-         //Frequence des itération du Kalman et de relevé des mesures en ms       
-        //Freq=1000*Freq; //Conversion en usecondes
-       
-         pthread_t t1,t2,t3,t4,t5,t6;
-         pthread_create(&t1,NULL,&threadGPS,gps_global);
-         pthread_create(&t2,NULL,&threadGPS,qr_global);
-         pthread_create(&t3,NULL,&threadGPS,odom_global);
-         pthread_create(&t4,NULL,&threadIMU,imu_global);
-         pthread_create(&t5,NULL,&threadPID,pid_global);
 
-         pthread_create(&t6,NULL,&threadGlobal,NULL);
+        //Threads
+        pthread_t t1,t2,t3,t4,t5,t6;
+        pthread_create(&t1,NULL,&threadGPS,gps_global);
+        pthread_create(&t2,NULL,&threadGPS,qr_global);
+        pthread_create(&t3,NULL,&threadGPS,odom_global);
+        pthread_create(&t4,NULL,&threadIMU,imu_global);
+        pthread_create(&t5,NULL,&threadPID,pid_global);
+
+        pthread_create(&t6,NULL,&threadGlobal,NULL);
 
          //Join for the main will not stop until all threads are overs
          //pthread_join(t3,NULL);
@@ -170,16 +168,10 @@ int main(){
          //For plotting, comment join and uncomment sleep
          sleep(15);
          
-                //Plotting of results
+        //Plotting of results
         FILE *gnuplot = popen("gnuplot -persist", "w");
         fprintf(gnuplot, "load \"Plotting/config\"\n");
         fflush(gnuplot);
 
-        //TO DO      
-
-        //Decodage des trames recuent => QR/GPS/IMU/PID (demander format trames)
-        //Arriver a publier les chiffres !!*/
-
         return 0;
-
 }

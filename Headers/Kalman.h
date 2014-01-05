@@ -42,6 +42,7 @@ class Kalman {
 
                 //Filtering
                 void Kalman_Filter(std::vector<double> *);
+                void matrix_display(double (*A)[3][3], char *name);
 };
 
 #endif

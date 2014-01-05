@@ -13,9 +13,15 @@ IMU *imu_global=new IMU("foo4",25);
 
 //Kalman filtering
 Kalman *kalman = new Kalman(1,1,0.1,0.1);
-std::vector<std::vector<int> > A;
-std::vector<std::vector<int> > C;
-std::vector<std::vector<int> > Q;
-std::vector<std::vector<int> > R;
+double *mat_A[3][3]={{0,0,0},{0,0,0},{0,0,0}};
+double *mat_C[3][3]={{0,0,0},{0,0,0},{0,0,0}};
+double *mat_R[3][3]={{0,0,0},{0,0,0},{0,0,0}};
+double *mat_Q[3][3]={{0,0,0},{0,0,0},{0,0,0}};
+double *mat_P0[3][3]={{0,0,0},{0,0,0},{0,0,0}};
+double *mat_P[3][3]={{0,0,0},{0,0,0},{0,0,0}};
+
+double *mat_X0[6]={0};
+double *mat_X[6]={0};
+
 
 int Freq=20;

@@ -14,10 +14,16 @@ extern IMU *imu_global;
 
 //Kalman filtering
 extern Kalman *kalman;
-/*extern std::vector<std::vector<int> > A (3, std::vector<int>(3, 0));
-extern std::vector<std::vector<int> > C (3, std::vector<int>(3, 0));
-extern std::vector<std::vector<double> > Q (3, std::vector<double>(3, 0));
-extern std::vector<std::vector<double> > R (3, std::vector<double>(3, 0));*/
+extern double (*mat_A)[3][3];
+extern double (*mat_C)[3][3];
+extern double (*mat_R)[3][3];
+extern double (*mat_Q)[3][3];
+extern double (*mat_P)[3][3];
+extern double (*mat_P0)[3][3];
+
+extern double (*mat_X0)[6];
+extern double (*mat_X)[6];
+
 extern int Freq;
 
  

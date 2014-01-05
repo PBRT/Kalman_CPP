@@ -1,4 +1,5 @@
 #include "../Headers/Kalman.h"
+#include "../Headers/Global.h"
 #include <iostream>
 #include <string>
 #include <ctime>
@@ -71,6 +72,20 @@ void Kalman::setPprec(std::vector<std::vector<double> > *i){
 
 //Fonctions
 
+void  Kalman::matrix_display(double (*A)[3][3], char *name){
+        int i,j;
+        
+        printf("%s\n", name);
+        for(i=0;i<3;i++){
+                for(j=0;j<3;j++){
+                        printf(" %f |", (*A)[i][j]);
+                }
+                printf("\n");
+        }
+        printf("\n");
+}
+
+
 void Kalman::Kalman_Filter(std::vector<double> *Z){
 
     //Analyse des mesures (Validité), normalement, changer la matrice C, peut etre déja fait dans la fonction Kalman
@@ -80,8 +95,18 @@ void Kalman::Kalman_Filter(std::vector<double> *Z){
     }
 
     //Algorithme de Kalman (pour l'instant, simple moyenne)    
+    //Matrice A => mat_A;
+    //Matrice C => mat_C;
+    //Matrice Q => mat_Q;
+    //Matrice R => mat_R;
+    //Matrice P => mat_P;
+    //Matrice P0 => mat_P0;
+    //Matrice X => mat_X;
+    //Matrice X0 => mat_X0;
+    mat_C=mat_A;
+    matrix_display(mat_C,"C");
 
-
+    
     //Mise a jours des Valeurs 
     this->setX(Z);
 

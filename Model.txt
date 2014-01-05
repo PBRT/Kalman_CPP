@@ -1,0 +1,18 @@
+--Model and parameters for Kalman Filtering--
+
+---Kalman Filter---
+A=[ 10 0 0 ; 0 -1 0 ; 87 0 0 ]
+C=[ 1 0 0 ; 0 1 0 ; 0 0 1 ]
+R=[ 1 0 0 ; 0 2 0 ; 0 0 3 ]
+Q=[ 0.1 0 0 ; 0 0.2 0 ; 0 0 0.3 ]
+X0=[ 0 0 0 0 0 0 ]
+P0=[ 0 0 0 ; 0 0 0 ; 0 0 0 ]
+
+
+---Topics names---
+GPS=gps
+QRCode=qrcode
+PID=pid
+IMU=imu
+Odometry=odom
+
