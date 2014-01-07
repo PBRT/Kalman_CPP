@@ -11,8 +11,8 @@ class IMU {
 
         //Attributs
         private :
-        std::vector<int> *data;         //Buffer des données GPS, contient X,Y,Z et CovX,CovY et CovZ
-        std::vector<int> *data_vitesse;         //Buffer des données GPS, contient vitesse X,Y,Z et CovX,CovY et CovZ
+        std::vector<double> *data;         //Buffer des données GPS, contient X,Y,Z et CovX,CovY et CovZ
+        std::vector<double> *data_vitesse;         //Buffer des données GPS, contient vitesse X,Y,Z et CovX,CovY et CovZ
         std::string topic_name;
         DataReader *reader;
         double timeStamp;
@@ -25,8 +25,8 @@ class IMU {
                 ~IMU();
 
                 //Getteurs
-                std::vector<int>* getData();
-                std::vector<int>* getVitesse();
+                std::vector<double>* getData();
+                std::vector<double>* getVitesse();
                 std::string getTopic();
                 DataReader* getDataReader();
                 double getTimeStamp();

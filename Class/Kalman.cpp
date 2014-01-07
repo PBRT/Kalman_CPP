@@ -104,7 +104,7 @@ void Kalman::Kalman_Filter(std::vector<double> *Z){
     //Matrice X => mat_X;
     //Matrice X0 => mat_X0;
     mat_C=mat_A;
-    matrix_display(mat_C,"C");
+   // matrix_display(mat_C,"C");
 
     
     //Mise a jours des Valeurs 

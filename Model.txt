@@ -13,6 +13,6 @@ P0=[ 0 0 0 ; 0 0 0 ; 0 0 0 ]
 GPS=gps
 QRCode=qrcode
 PID=pid
-IMU=imu
+IMU=ardrone/imu
 Odometry=odom
 

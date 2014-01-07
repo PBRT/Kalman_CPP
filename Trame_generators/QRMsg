@@ -8,9 +8,9 @@ child_frame_id: ''
 pose: 
   pose: 
     position: 
-      x: -336.265
-      y: -999663.0
-      z: 8098896.0
+      x: -0.265
+      y: -0.0
+      z: 0.10
     orientation: 
       x: 1.0
       y: 0.0

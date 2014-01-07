@@ -15,8 +15,8 @@ using namespace std;
 
 //Constructeur
 IMU::IMU(std::string n, int s){      
-        this->data = new vector <int>(6);   //Contient X, Y et Z ainsi que les Covariances associées
-        this->data_vitesse = new vector <int>(6);   //Contient vitesses X, Y et Z ainsi que les Covariances associées
+        this->data = new vector <double>(6);   //Contient X, Y et Z ainsi que les Covariances associées
+        this->data_vitesse = new vector <double>(6);   //Contient vitesses X, Y et Z ainsi que les Covariances associées
         this->topic_name=n;
         this->sizeMess=s;
         this->reader= new DataReader(this->topic_name, s);
@@ -25,10 +25,10 @@ IMU::IMU(std::string n, int s){
 
 
 //Getteurs
-std::vector<int>* IMU::getData(){
+std::vector<double>* IMU::getData(){
     return this->data;
 }
-std::vector<int>* IMU::getVitesse(){
+std::vector<double>* IMU::getVitesse(){
     return this->data_vitesse;
 }
 
@@ -84,6 +84,8 @@ void IMU::Acquisition(){
 //Analyse les données recuent et les converti en entier
 void IMU::Analysis(){
         
+cout << this->reader->result << endl;
+
         //Separation du message recut dans un vecteur
         std::vector<std::string> container = split(this->reader->result, '\n');
         
@@ -139,12 +141,12 @@ void IMU::Analysis(){
         this->data_vitesse->at(5)=dCovZ;
 
      
-        printf("Valeur de x IMU: %f\n", dx);
-        printf("Valeur de Y IMU: %f\n", dy);
+     /*   printf("Valeur de x IMU: %f\n", y);
+        printf("Valeur de Y IMU: %f\n", this->data->at(1));
         printf("Valeur de Z IMU: %f\n", dz); 
         printf("Valeur de covx : %f\n", dCovX);
         printf("Valeur de covY : %f\n", dCovY);
-        printf("Valeur de covZ : %f\n", dCovZ);
+        printf("Valeur de covZ : %f\n", dCovZ);*/
 
 
 }

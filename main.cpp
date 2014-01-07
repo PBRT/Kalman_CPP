@@ -33,9 +33,9 @@ void *threadIMU(void *obj){
         
         IMU *imu = (IMU*)obj;
         //Reading loop
-        while(1)
-                imu->Acquisition();
-
+        while(1){
+                imu->Acquisition();      
+            }
         return NULL;
 
 }
@@ -56,7 +56,7 @@ void *threadPID(void *obj){
 //If unvalid, return -10000
 double checkTimeStamp(double ta, double tb, double val){
     
-    double var = -10000;
+    double var = -3;
     if((ta-tb)<Freq)
         return val;
     else
@@ -80,13 +80,13 @@ void *threadGlobal(void *o){
         while(1){
 
                 //Read
-               /* cout << "----Aquisition et lecture buffers numero "<<i<<": " << endl; 
+                cout << "----Aquisition et lecture buffers numero "<<i<<": " << endl; 
                 printf("-------> GPS : TimeStamp : %f Value : %f \n", gps_global->getTimeStamp(), gps_global->getData()->at(1));
                 printf("-------> ODOM : TimeStamp : %f Value : %f \n", odom_global->getTimeStamp(), odom_global->getData()->at(0));
                 printf("-------> QRCODE : TimeStamp : %f Value : %f \n", qr_global->getTimeStamp(), qr_global->getData()->at(1));
-                printf("-------> IMU : TimeStamp : %f Value : %d \n", imu_global->getTimeStamp(), imu_global->getData()->at(1));
+                printf("-------> IMU : TimeStamp : %f Value : %f \n", imu_global->getTimeStamp(), imu_global->getData()->at(1));
                 printf("-------> PID : TimeStamp : %f Value : %f \n\n", pid_global->getTimeStamp(), pid_global->getDataLinear()->at(1)); 
-                */
+                
                 //Acquisition du temps
                 ftime(&end2);
                 diff2=1000.0*end2.time + end2.millitm;
