@@ -11,5 +11,5 @@ Merge data from :
 ->PID (computation from current position and command)
 ->Odometry
 
-Check more detail on the [*Localization Ardrone project (University project) *](https://github.com/clems4ever/drone_project?source=cc)
+Check more detail on the [Localization Ardrone project (University project) ](https://github.com/clems4ever/ardrone_loclib)
 
